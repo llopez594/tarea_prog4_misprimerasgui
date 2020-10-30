@@ -11,7 +11,7 @@ import java.awt.*;
 
 /**
  *
- * @author LjlopezM
+ * @author Luis J. Lopez M.
  */
 public class Main extends JFrame {
 
@@ -66,12 +66,11 @@ public class Main extends JFrame {
     void addPaneltoContent(Component comp, int gridx, int gridy, int gridWith, int gridHeigh, String fill) {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = (fill.equals("h")) ? GridBagConstraints.HORIZONTAL : GridBagConstraints.VERTICAL;
         gbc.gridx = gridx;
         gbc.gridy = gridy;
         gbc.gridwidth = gridWith;
         gbc.gridheight = gridHeigh;
-        gbc.fill = (fill.equals("h")) ? GridBagConstraints.HORIZONTAL : 0;
-        gbc.fill = (fill.equals("v")) ? GridBagConstraints.VERTICAL : 0;
         contentPane.add(comp, gbc);
     }
     

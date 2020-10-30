@@ -4,13 +4,16 @@ import tarea_misprimerasgui.Main;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
-import javax.swing.text.NumberFormatter;
 import java.awt.*;
-import java.text.NumberFormat;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class DatosEstudiante extends JPanel {
 
-    JTextField tfiel_nombre, tfiel_apellido, tfiel_cedula, tfiel_fecNac, tfiel_edad;
+    JTextField tfiel_nombre, tfiel_apellido, tfiel_cedula, tfiel_edad;
+    JFormattedTextField tfiel_fecNac;
     JRadioButton rb_masculino, rb_femenino;
     JComboBox<String> cbox_lugar;
 
@@ -22,9 +25,9 @@ public class DatosEstudiante extends JPanel {
         tfiel_nombre   = new JTextField(12);
         tfiel_apellido = new JTextField(12);
         tfiel_cedula   = new JTextField(12);
-        tfiel_fecNac   = new JTextField(12);
+        tfiel_fecNac   = new JFormattedTextField(new SimpleDateFormat("dd/MM/yyyy"));
+        tfiel_fecNac.setValue(new Date());
         tfiel_edad     = new JTextField(12);
-//        tfiel_edad     = new JFormattedTextField(this.onlyNumber());
         cbox_lugar = new JComboBox<String>();
         cbox_lugar.setMaximumRowCount(6);
         rb_masculino   = new JRadioButton("Hombre");
@@ -47,6 +50,50 @@ public class DatosEstudiante extends JPanel {
         add(new JLabel("Lugar de Nacimiento: "));  add(cbox_lugar);
         add(new JLabel("Edad: "));     add(tfiel_edad);
         add(new JLabel("Sexo: "));     add(panel_bg);
+
+        tfiel_nombre.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char caracter = e.getKeyChar();
+                if (Character.isDigit(caracter)) {
+                    e.consume(); // ignorar el evento de teclado
+                    getToolkit().beep();
+                }
+            }
+        });
+
+        tfiel_apellido.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char caracter = e.getKeyChar();
+                if (Character.isDigit(caracter)) {
+                    e.consume(); // ignorar el evento de teclado
+                    getToolkit().beep();
+                }
+            }
+        });
+
+        tfiel_cedula.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char caracter = e.getKeyChar();
+                if (((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
+                    e.consume(); // ignorar el evento de teclado
+                    getToolkit().beep();
+                }
+            }
+        });
+
+        tfiel_edad.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char caracter = e.getKeyChar();
+                if (((caracter < '0') || (caracter > '9')) && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
+                    e.consume(); // ignorar el evento de teclado
+                    getToolkit().beep();
+                }
+            }
+        });
     }
 
     void init_estados() {
@@ -74,16 +121,5 @@ public class DatosEstudiante extends JPanel {
         cbox_lugar.addItem("Portuguesa");
         cbox_lugar.addItem("Aragua");
         cbox_lugar.addItem("Lara");
-    }
-
-    NumberFormatter onlyNumber() {
-        NumberFormat format = NumberFormat.getInstance();
-        NumberFormatter formatter = new NumberFormatter(format);
-        formatter.setValueClass(Integer.class);
-        formatter.setMinimum(0); //valor mínimo
-        formatter.setMaximum(99); //valor máximo
-        formatter.setAllowsInvalid(false);
-        formatter.setCommitsOnValidEdit(true);
-        return formatter;
     }
 }
