@@ -25,4 +25,11 @@ public class DocumentosConsignados extends JPanel {
         add(cb_partnacimiento);
         add(cb_cedula);
     }
+
+    public void clear() {
+        cb_fondonegro.setSelected(false);
+        cb_notascert.setSelected(false);
+        cb_partnacimiento.setSelected(false);
+        cb_cedula.setSelected(false);
+    }
 }

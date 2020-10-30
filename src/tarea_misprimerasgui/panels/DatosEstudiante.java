@@ -33,7 +33,7 @@ public class DatosEstudiante extends JPanel {
         rb_masculino   = new JRadioButton("Hombre");
         rb_femenino    = new JRadioButton("Mujer");
         rb_masculino.setSelected(true);
-        this.init_estados();
+        this.load_estados();
 
         ButtonGroup bg = new ButtonGroup();
         bg.add(rb_masculino);
@@ -96,7 +96,17 @@ public class DatosEstudiante extends JPanel {
         });
     }
 
-    void init_estados() {
+    public void clear() {
+        tfiel_nombre.setText("");
+        tfiel_apellido.setText("");
+        tfiel_cedula.setText("");
+        tfiel_fecNac.setValue(new Date());
+        cbox_lugar.setSelectedItem(0);
+        tfiel_edad.setText("");
+        rb_masculino.setSelected(true);
+    }
+
+    private void load_estados() {
         cbox_lugar.addItem("Apure");
         cbox_lugar.addItem("Monagas");
         cbox_lugar.addItem("Anzoategui");
@@ -122,4 +132,6 @@ public class DatosEstudiante extends JPanel {
         cbox_lugar.addItem("Aragua");
         cbox_lugar.addItem("Lara");
     }
+
+
 }

@@ -5,15 +5,18 @@
  */
 package tarea_misprimerasgui;
 
+import tarea_misprimerasgui.Utils.DialogUtil;
 import tarea_misprimerasgui.panels.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
  * @author Luis J. Lopez M.
  */
-public class Main extends JFrame {
+public class Main extends JFrame implements ActionListener {
 
     Container contentPane;
     TituloPrincipal tituloPrincipal;
@@ -48,10 +51,45 @@ public class Main extends JFrame {
         this.addPaneltoContent(botonesAccion, 1, 3);
 
         paintComponents(getGraphics());
+        init();
     }
 
     public static void main(String[] args) {
         Main main = new Main();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == botonesAccion.btn_guardar)
+        {
+            if(DialogUtil.dialogPreguntaSiNo("¿desea guardar la información?"))
+            {
+                DialogUtil.dialogMensaje("los datos fueron almacenados");
+                this.init();
+            }
+        }
+
+        if(e.getSource() == botonesAccion.btn_limpiar)
+        {
+            if(DialogUtil.dialogPreguntaSiNo("¿está seguro que desea limpiar todos los parámetros?"))
+            {
+                this.init();
+            }
+        }
+
+        if(e.getSource() == botonesAccion.btn_cancelar)
+        {
+            if(DialogUtil.dialogPreguntaSiNo("¿está seguro en salir de la aplicación?"))
+            {
+                System.exit(0);
+            }
+        }
+    }
+
+    private void init() {
+        datosEstudiante.clear();
+        estadoCivil.clear();
+        documentosConsignados.clear();
     }
 
     void addPaneltoContent(Component comp, int gridx, int gridy) {
@@ -73,5 +111,5 @@ public class Main extends JFrame {
         gbc.gridheight = gridHeigh;
         contentPane.add(comp, gbc);
     }
-    
+
 }

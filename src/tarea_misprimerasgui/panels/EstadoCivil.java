@@ -32,4 +32,8 @@ public class EstadoCivil extends JPanel {
         add(rb_divorciado);
         add(rb_viudo);
     }
+
+    public void clear() {
+        rb_soltero.setSelected(true);
+    }
 }
