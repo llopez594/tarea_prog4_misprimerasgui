@@ -6,7 +6,6 @@
 package tarea_misprimerasgui;
 
 import tarea_misprimerasgui.panels.*;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,56 +15,64 @@ import java.awt.*;
  */
 public class Main extends JFrame {
 
+    Container contentPane;
     TituloPrincipal tituloPrincipal;
     DatosEstudiante datosEstudiante;
-    LugarNacimiento lugarNacimiento;
     EstadoCivil estadoCivil;
     DocumentosConsignados documentosConsignados;
     BotonesAccion botonesAccion;
 
-    GridBagConstraints gbc = new GridBagConstraints();
-
     public Main() {
         super("Registro Estudiante");
-        setBounds(300,200,800,600);
+        setSize(500, 480);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setResizable(false);
 
-        Container contentPane = this.getContentPane();
-        contentPane.setLayout(new BorderLayout(8,6));
-//        contentPane.setLayout(new GridBagLayout());
+        //contenedor principal
+        contentPane = this.getContentPane();
+        contentPane.setLayout(new GridBagLayout());
 
-        //titulo
+        //instaciamos los paneles
         tituloPrincipal = new TituloPrincipal();
+        datosEstudiante = new DatosEstudiante(this);
+        estadoCivil     = new EstadoCivil(this);
+        documentosConsignados = new DocumentosConsignados(this);
+        botonesAccion   = new BotonesAccion(this);
 
-        //Paneles del medio
-        JPanel middlePanel = new JPanel();
-        middlePanel.setLayout(new GridLayout(1,2));
-        middlePanel.add(datosEstudiante = new DatosEstudiante(this));//subpanel del medio izquierdo
-        middlePanel.add(lugarNacimiento = new LugarNacimiento(this));//subpanel del medio derecho
-
-        // subpanel de agrupacion del panel inferior izquierdo y centro
-        JPanel gridPanelInferior = new JPanel();
-        gridPanelInferior.setLayout(new GridLayout(1,2));
-        gridPanelInferior.add(estadoCivil = new EstadoCivil(this));//subpanel inferior izquierdo
-        gridPanelInferior.add(documentosConsignados = new DocumentosConsignados(this));//subpanel inferior centro
-
-        //Paneles inferior
-        JPanel bottomPanel = new JPanel();
-        middlePanel.setLayout(new GridLayout(1,2));
-        bottomPanel.add(gridPanelInferior);
-        bottomPanel.add(botonesAccion = new BotonesAccion(this));//subpanel inferior derecho
-
-        contentPane.add(tituloPrincipal, BorderLayout.NORTH);
-        contentPane.add(middlePanel, BorderLayout.EAST);
-        contentPane.add(bottomPanel, BorderLayout.SOUTH);
+        this.addPaneltoContent(tituloPrincipal, 0, 0, 2, 1, "h");
+        this.addPaneltoContent(datosEstudiante, 0, 1, 1, 3, "v");
+        this.addPaneltoContent(estadoCivil, 1, 1);
+        this.addPaneltoContent(documentosConsignados, 1, 2);
+        this.addPaneltoContent(botonesAccion, 1, 3);
 
         paintComponents(getGraphics());
     }
 
     public static void main(String[] args) {
         Main main = new Main();
+    }
+
+    void addPaneltoContent(Component comp, int gridx, int gridy) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.gridx = gridx;
+        gbc.gridy = gridy;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        contentPane.add(comp, gbc);
+    }
+
+    void addPaneltoContent(Component comp, int gridx, int gridy, int gridWith, int gridHeigh, String fill) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.gridx = gridx;
+        gbc.gridy = gridy;
+        gbc.gridwidth = gridWith;
+        gbc.gridheight = gridHeigh;
+        gbc.fill = (fill.equals("h")) ? GridBagConstraints.HORIZONTAL : 0;
+        gbc.fill = (fill.equals("v")) ? GridBagConstraints.VERTICAL : 0;
+        contentPane.add(comp, gbc);
     }
     
 }

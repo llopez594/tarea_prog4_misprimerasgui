@@ -7,7 +7,7 @@ public class TituloPrincipal extends JPanel {
 
     public TituloPrincipal() {
         FlowLayout layout = new FlowLayout();
-        layout.setVgap(20);
+        layout.setVgap(10);
         layout.setAlignment(FlowLayout.CENTER);
         setLayout(layout);
 
