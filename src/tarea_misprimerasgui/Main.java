@@ -6,7 +6,7 @@
 package tarea_misprimerasgui;
 
 import tarea_misprimerasgui.Utils.DialogUtil;
-import tarea_misprimerasgui.panels.*;
+import tarea_misprimerasgui.Panels.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

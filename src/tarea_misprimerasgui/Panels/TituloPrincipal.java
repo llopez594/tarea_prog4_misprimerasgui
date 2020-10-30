@@ -1,4 +1,4 @@
-package tarea_misprimerasgui.panels;
+package tarea_misprimerasgui.Panels;
 
 import javax.swing.*;
 import java.awt.*;
